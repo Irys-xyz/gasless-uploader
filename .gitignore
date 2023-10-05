@@ -1,0 +1,18 @@
+# Next.js build output
+.next/
+out/
+
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env.local
+
+# macOS files
+.DS_Store
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
