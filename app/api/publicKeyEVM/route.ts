@@ -6,7 +6,6 @@ import { NextResponse } from "next/server";
  */
 async function serverInit(): Promise<Buffer> {
 	const key = process.env.PRIVATE_KEY_EVM; // your private key;
-	console.log("key=", key);
 	if (!key) throw new Error("Private key is undefined!");
 	const signer = new TypedEthereumSigner(key);
 	return signer.publicKey;

@@ -9,8 +9,6 @@ import { ReadableStream } from "stream/web";
  * @returns
  */
 async function lazyFund(filesize: string): Promise<string> {
-	console.log("lazyFund EVM");
-	// nodeJS client
 	const key = process.env.PRIVATE_KEY_EVM;
 	const token = process.env.NEXT_PUBLIC_TOKEN || "";
 	const url = process.env.NEXT_PUBLIC_NODE || "";
@@ -20,7 +18,7 @@ async function lazyFund(filesize: string): Promise<string> {
 		url, // URL of the node you want to connect to
 		token, // Token used for payment and signing
 		key: key,
-		config: { providerUrl }, // Optional provider URL, only required when using Devnet
+		config: { providerUrl }, // Only required when using Devnet
 	});
 	console.log(
 		"serverIrysPubKey",

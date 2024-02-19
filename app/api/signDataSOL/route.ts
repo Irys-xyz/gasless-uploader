@@ -9,23 +9,17 @@ import HexInjectedSolanaSigner from "arbundles/build/web/esm/src/signing/chains/
  * @returns A signed version of the data, signatureData, as sent by the client.
  */
 async function signDataOnServer(signatureData: Buffer): Promise<Buffer> {
-	// const key = process.env.PRIVATE_KEY_SOL; // your private key
-	// if (!key) throw new Error("Private key is undefined!");
-	// const signer = new TypedEthereumSigner(key);
-	// return Buffer.from(await signer.sign(signatureData));
-
-	//
-
 	const key = process.env.PRIVATE_KEY_SOL;
 	const token = "solana";
 	const url = process.env.NEXT_PUBLIC_NODE || "";
-	const providerUrl = "https://api.devnet.solana.com"; //getRpcUrl(token || "");
+	// Change if deploying on mainnet
+	const providerUrl = "https://api.devnet.solana.com";
 
 	const serverIrys = new Irys({
 		url, // URL of the node you want to connect to
 		token, // Token used for payment and signing
 		key: key,
-		config: { providerUrl }, // Optional provider URL, only required when using Devnet
+		config: { providerUrl }, // Only required when using Devnet
 	});
 
 	const encodedMessage = Buffer.from(signatureData);
