@@ -23,7 +23,7 @@ async function lazyFund(filesize: string): Promise<string> {
 	console.log(
 		"serverIrysPubKey",
 		//@ts-ignore
-		serverIrys.currencyConfig.getPublicKey().toJSON(),
+		serverIrys.tokenConfigConfig.getPublicKey().toJSON(),
 	);
 
 	const price = await serverIrys.getPrice(parseInt(filesize));
