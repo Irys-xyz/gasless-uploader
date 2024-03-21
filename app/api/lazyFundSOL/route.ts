@@ -13,12 +13,12 @@ async function lazyFund(filesize: string): Promise<string> {
 
 	const key = process.env.PRIVATE_KEY_SOL;
 	const token = "solana";
-	const url = process.env.NEXT_PUBLIC_NODE || "";
+	const network = process.env.NEXT_PUBLIC_NETWORK || "devnet";
 	// Change if deploying on Mainnet
 	const providerUrl = "https://api.devnet.solana.com";
 
 	const serverIrys = new Irys({
-		url, // URL of the node you want to connect to
+		network, // "mainnet" || "devnet"
 		token, // Token used for payment and signing
 		key: key,
 		config: { providerUrl }, // Only required when using Devnet

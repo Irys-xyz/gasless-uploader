@@ -52,11 +52,11 @@ const gasslessFundAndUploadEVM = async (selectedFile: File, tags: Tag[]): Promis
 	});
 
 	// Create a new WebIrys object using the provider created with server info.
-	const url = process.env.NEXT_PUBLIC_NODE || "";
+	const network = process.env.NEXT_PUBLIC_NETWORK || "";
 	const token = process.env.NEXT_PUBLIC_TOKEN || "";
 
 	const wallet = { name: "ethersv5", provider: provider };
-	const irys = new WebIrys({ url, token, wallet });
+	const irys = new WebIrys({ network, token, wallet });
 
 	const w3signer = await provider.getSigner();
 	const address = (await w3signer.getAddress()).toLowerCase();
@@ -105,9 +105,9 @@ const gasslessFundAndUploadSOL = async (selectedFile: File, tags: Tag[]): Promis
 	});
 
 	// Create a new WebIrys object using the provider created with server info.
-	const url = process.env.NEXT_PUBLIC_NODE || "";
+	const network = process.env.NEXT_PUBLIC_NETWORK || "devnet";
 	const wallet = { rpcURL: "https://api.devnet.solana.com", name: "solana", provider: provider };
-	const irys = new WebIrys({ url, token: "solana", wallet });
+	const irys = new WebIrys({ network, token: "solana", wallet });
 
 	await irys.ready();
 	console.log("WebIrys=", irys);
