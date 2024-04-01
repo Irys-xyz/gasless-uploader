@@ -106,7 +106,7 @@ const gasslessFundAndUploadSOL = async (selectedFile: File, tags: Tag[]): Promis
 
 	// Create a new WebIrys object using the provider created with server info.
 	const url = process.env.NEXT_PUBLIC_NODE || "";
-	const wallet = { rpcURL: "https://api.devnet.solana.com", name: "solana", provider: provider };
+	const wallet = { rpcUrl: "https://api.devnet.solana.com", name: "solana", provider: provider };
 	const irys = new WebIrys({ url, token: "solana", wallet });
 
 	await irys.ready();

@@ -3,6 +3,7 @@ import { TypedEthereumSigner } from "arbundles";
 import { NextResponse } from "next/server";
 import Irys from "@irys/sdk";
 import HexInjectedSolanaSigner from "arbundles/build/web/esm/src/signing/chains/HexInjectedSolanaSigner";
+import  SolanaSigner from "arbundles/build/web/esm/src/signing/chains/SolanaSigner";
 
 /**
  *
@@ -24,14 +25,17 @@ async function signDataOnServer(signatureData: Buffer): Promise<Buffer> {
 
 	const encodedMessage = Buffer.from(signatureData);
 
-	const signature = await serverIrys.tokenConfig.sign(encodedMessage);
+
+	if(!key) throw new Error(`missing required solana private key`)
+	// the client now uses HexSolanaSigner instead of SolanaSigner, so we have to use the SolanaSigner directly so the signature data isn't hex converted twice.
+	const signature =  await (new SolanaSigner(key)).sign(encodedMessage) /* await serverIrys.tokenConfig.sign(encodedMessage); */
 
 	const isValid = await HexInjectedSolanaSigner.verify(
 		serverIrys.tokenConfig.getPublicKey() as Buffer,
 		signatureData,
 		signature,
 	);
-
+	console.log("is tx valid?", isValid)
 	return Buffer.from(signature);
 }
 
