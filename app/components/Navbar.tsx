@@ -31,12 +31,12 @@ const NavbarLink: FC<NavbarLinkProps> = ({ href, children }) => {
 const Navbar: FC = () => {
 	const NAV_LINKS = [
 		{
-			href: "/gassless-uploader-evm",
-			text: "Gassless Uploader (EVM)",
+			href: "/gasless-uploader-evm",
+			text: "Gasless Uploader (EVM)",
 		},
 		{
-			href: "/gassless-uploader-sol",
-			text: "Gassless Uploader (SOL)",
+			href: "/gasless-uploader-sol",
+			text: "Gasless Uploader (SOL)",
 		},
 	];
 
@@ -46,7 +46,7 @@ const Navbar: FC = () => {
 				<div className="flex flex-col items-center justify-between w-full">
 					<div className="text-lg font-semibold bg-black w-full h-full py-2 text-white text-center">
 						<Link className="flex items-center gap-4 cursor-pointer justify-center" href="/">
-							<IrysIcon /> <span>Gassless uploader</span>
+							<IrysIcon /> <span>Gasless uploader</span>
 						</Link>
 					</div>
 

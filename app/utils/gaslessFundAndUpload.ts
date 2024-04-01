@@ -6,7 +6,7 @@ type Tag = {
 	value: string;
 };
 
-const gasslessFundAndUploadEVM = async (selectedFile: File, tags: Tag[]): Promise<string> => {
+const gaslessFundAndUploadEVM = async (selectedFile: File, tags: Tag[]): Promise<string> => {
 	// obtain the server's public key
 	const pubKeyRes = (await (await fetch("/api/publicKeyEVM")).json()) as unknown as {
 		pubKey: string;
@@ -52,11 +52,11 @@ const gasslessFundAndUploadEVM = async (selectedFile: File, tags: Tag[]): Promis
 	});
 
 	// Create a new WebIrys object using the provider created with server info.
-	const url = process.env.NEXT_PUBLIC_NODE || "";
+	const network = process.env.NEXT_PUBLIC_NETWORK || "devnet";
 	const token = process.env.NEXT_PUBLIC_TOKEN || "";
 
 	const wallet = { name: "ethersv5", provider: provider };
-	const irys = new WebIrys({ url, token, wallet });
+	const irys = new WebIrys({ network, token, wallet });
 
 	const w3signer = await provider.getSigner();
 	const address = (await w3signer.getAddress()).toLowerCase();
@@ -71,7 +71,7 @@ const gasslessFundAndUploadEVM = async (selectedFile: File, tags: Tag[]): Promis
 	return tx.id;
 };
 
-const gasslessFundAndUploadSOL = async (selectedFile: File, tags: Tag[]): Promise<string> => {
+const gaslessFundAndUploadSOL = async (selectedFile: File, tags: Tag[]): Promise<string> => {
 	// Obtain the server's public key
 	const pubKeyRes = (await (await fetch("/api/publicKeySOL")).json()) as unknown as {
 		pubKey: string;
@@ -105,9 +105,9 @@ const gasslessFundAndUploadSOL = async (selectedFile: File, tags: Tag[]): Promis
 	});
 
 	// Create a new WebIrys object using the provider created with server info.
-	const url = process.env.NEXT_PUBLIC_NODE || "";
+	const network = process.env.NEXT_PUBLIC_NETWORK || "devnet";
 	const wallet = { rpcUrl: "https://api.devnet.solana.com", name: "solana", provider: provider };
-	const irys = new WebIrys({ url, token: "solana", wallet });
+	const irys = new WebIrys({ network, token: "solana", wallet });
 
 	await irys.ready();
 	console.log("WebIrys=", irys);
@@ -128,14 +128,14 @@ const gasslessFundAndUploadSOL = async (selectedFile: File, tags: Tag[]): Promis
  * @param {Tag[]} tags - An array of tags associated with the file.
  * @returns {Promise<string>} - The transaction ID of the upload.
  */
-const gasslessFundAndUpload = async (selectedFile: File, tags: Tag[], blockchain: "EVM" | "SOL"): Promise<string> => {
+const gaslessFundAndUpload = async (selectedFile: File, tags: Tag[], blockchain: "EVM" | "SOL"): Promise<string> => {
 	let txId = "";
 	switch (blockchain) {
 		case "EVM":
-			txId = await gasslessFundAndUploadEVM(selectedFile, tags);
+			txId = await gaslessFundAndUploadEVM(selectedFile, tags);
 			break;
 		case "SOL":
-			txId = await gasslessFundAndUploadSOL(selectedFile, tags);
+			txId = await gaslessFundAndUploadSOL(selectedFile, tags);
 			break;
 		default:
 			throw new Error("Unsupported blockchain");
@@ -143,4 +143,4 @@ const gasslessFundAndUpload = async (selectedFile: File, tags: Tag[], blockchain
 	return txId;
 };
 
-export default gasslessFundAndUpload;
+export default gaslessFundAndUpload;

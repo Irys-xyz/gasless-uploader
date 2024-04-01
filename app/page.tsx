@@ -9,7 +9,7 @@ export default function Home() {
 					target="_blank"
 					className="text-blue-500 hover:text-blue-700 underline"
 				>
-					The Irys Gassless uploader
+					The Irys Gasless uploader
 				</a>{" "}
 				is a set of two UI components for doing gasless file uploads
 			</div>

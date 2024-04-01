@@ -7,10 +7,8 @@
  */
 function getRpcUrl(currency: string): string | undefined {
 	const RPC_URLS: Record<string, string | undefined> = {
-		aptos: process.env.NEXT_PUBLIC_RPC_APTOS,
 		arbitrum: process.env.NEXT_PUBLIC_RPC_ARBITRUM,
 		avalanche: process.env.NEXT_PUBLIC_RPC_AVALANCHE,
-		boba: process.env.NEXT_PUBLIC_RPC_BOBA,
 		chainlink: process.env.NEXT_PUBLIC_RPC_ETHEREUM, // For Chainlink, return Ethereum RPC
 		ethereum: process.env.NEXT_PUBLIC_RPC_ETHEREUM,
 		fantom: process.env.NEXT_PUBLIC_RPC_FANTOM,

@@ -6,13 +6,14 @@ import { PiReceiptLight } from "react-icons/pi";
 import ReceiptJSONView from "./ReceiptJSONView";
 import Spinner from "./Spinner";
 import fileReaderStream from "filereader-stream";
-import gasslessFundAndUpload from "../utils/gasslessFundAndUpload";
+import gaslessFundAndUpload from "../utils/gaslessFundAndUpload";
 import getIrys from "../utils/getIrys";
 import { useCallback } from "react";
 import { useEffect } from "react";
 import { useMemo } from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import getReceipt from "../utils/getReceipt";
 
 // Define the Tag type
 type Tag = {
@@ -34,7 +35,7 @@ interface UploaderConfigProps {
 	blockchain: "EVM" | "SOL";
 }
 
-export const GasslessUploader: React.FC<UploaderConfigProps> = ({
+export const GaslessUploader: React.FC<UploaderConfigProps> = ({
 	showImageView = true,
 	showReceiptView = true,
 	blockchain = "EVM",
@@ -88,7 +89,7 @@ export const GasslessUploader: React.FC<UploaderConfigProps> = ({
 		try {
 			for (const file of files) {
 				const tags: Tag[] = [{ name: "Content-Type", value: file.file.type }];
-				const uploadTxId = await gasslessFundAndUpload(file.file, tags, blockchain);
+				const uploadTxId = await gaslessFundAndUpload(file.file, tags, blockchain);
 
 				file.id = uploadTxId;
 				file.isUploaded = true;
@@ -107,8 +108,7 @@ export const GasslessUploader: React.FC<UploaderConfigProps> = ({
 		updatedFiles[fileIndex].loadingReceipt = true;
 		setFiles(updatedFiles);
 		try {
-			const irys = await getIrys();
-			const receipt = await irys.utils.getReceipt(files[fileIndex].id);
+			const receipt = await getReceipt(files[fileIndex].id);
 			setReceipt(JSON.stringify(receipt));
 			setPreviewURL(""); // Only show one or the other
 		} catch (e) {
@@ -240,4 +240,4 @@ export const GasslessUploader: React.FC<UploaderConfigProps> = ({
 	);
 };
 
-export default GasslessUploader;
+export default GaslessUploader;
